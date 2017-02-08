@@ -1,2 +1,2 @@
 # Arduino
-I git repository for all my Arduino sketches.
+A git repository for all my Arduino sketches.
