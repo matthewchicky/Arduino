@@ -1,7 +1,11 @@
 #include <Wire.h>
 
+#define MPL3115A2 0x60
+
 void setup() {
   Wire.begin();
+  Serial.begin(9600);
+  
 
 }
 
@@ -33,9 +37,9 @@ byte readFromEEPROM(unsigned int memoryAddress) {
 byte readPSensor(byte registerAddress)
 {
   Wire.beginTransmission(B11000000);
-  Wire.write(regAddr);
+  Wire.write(registerAddress);
   Wire.endTransmission(false);
-  Wire.requestFrom(MPL3115A2_ADDRESS, 1);
+  Wire.requestFrom(MPL3115A2, 1);
   return Wire.read();
 }
 
