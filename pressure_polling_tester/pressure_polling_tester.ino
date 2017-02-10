@@ -43,13 +43,8 @@ void loop() {
     msb = IIC_Read(OUT_P_MSB);
     csb = IIC_Read(OUT_P_CSB);
     lsb = IIC_Read(OUT_P_LSB);
-    sta = IIC_Read(STATUS);
     
     Serial.println(pressure(msb,csb,lsb));
-    Serial.print("Status after read: ");
-    Serial.println(sta);
-    
-    Serial.println("\n-------------------------------------------------\n");
   }
 
   ctrl = IIC_Read(CTRL_REG_1);
