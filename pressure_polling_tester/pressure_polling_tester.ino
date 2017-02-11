@@ -47,39 +47,28 @@ void loop() {
 
     twobyte(msb,csb,lsb,&data1,&data2);
 
-    Serial.print("Package Data, in binary: ");
-    Serial.print(data1,BIN);
-    Serial.println(data2,BIN);
+    Serial.print("Package, in binary: ");
+    Serial.println(data1,BIN);
+    //Serial.print("Package 2, in binary: ");
+    //Serial.println(data2,BIN);
 
     Serial.print("Pressure Data, in float: ");
     Serial.println(pressure(msb,csb,lsb));
 
     Serial.println("\n----------------------------------------------\n");
   }
-
+  delay(100);
   ctrl = IIC_Read(CTRL_REG_1);
 }
 
 void twobyte(byte msb, byte csb, byte lsb, byte *d1, byte *d2)  {
-  long pressure_whole = (long)msb<<16 | (long)csb<<8 | (long)lsb; //good
-  pressure_whole >>= 6;                                           //good
-  pressure_whole -= 88616;    // Apply compression factor         //good
-  Serial.print("pressure_whole: ");
-  Serial.println(pressure_whole,BIN);
-  
-  lsb &= B00110000;                                               //good
-  lsb >>= 4;                                                      //good
-  Serial.print("Least significant bit: ");
-  Serial.println(lsb,BIN);
-
+  long pressure_whole = (long)msb<<16 | (long)csb<<8 | (long)lsb; 
+  pressure_whole >>= 6;                                           
+  pressure_whole -= 88616;    // Apply compression factor        
+  lsb &= B00110000;                                               
+  lsb >>= 4;                                                      
   long prePackage = pressure_whole<<2 | (long)lsb;
-  Serial.print("Prepackage: ");
-  Serial.println(prePackage,BIN);
-  
-  float decimal = (float)lsb/4.0;
-  Serial.print("Inside the function pressure: ");
-  Serial.println((float)pressure_whole + decimal+88616);
-  
+
   *d1 = prePackage>>8;
   *d2 = (prePackage & B11111111);
 }
