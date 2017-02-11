@@ -1,8 +1,8 @@
 #include <Wire.h>
 
 const byte chip = B1010000; // 24LC512 I2C Address
-unsigned int address = 0;
-byte number = 444;
+unsigned int address = 300;
+byte number = 24;
 
 void setup() {
   Serial.begin(9600);
@@ -28,12 +28,9 @@ void loop() {
   Serial.println("----------------------------------------");
   Serial.println("");
 
-  if (readData(chip,address)) {
-    number += 3;
-    ++address;
-  }
+  ++address;
   
-  delay(5000);
+  
 }
 
 void writeData(byte deviceAddress, unsigned int memoryAddress, byte data) {

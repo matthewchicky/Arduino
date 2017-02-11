@@ -17,8 +17,8 @@ void loop() {
   Serial.println("/65535");
   
   byte numRead = readData(chip,address);
-  Serial.print("Integer read, in DEC: ");
-  Serial.println(numRead,DEC);
+  //Serial.print("Integer read, in DEC: ");
+  //Serial.println(numRead,BIN);
   Serial.print("Integer read, in BIN: ");
   Serial.println(numRead,BIN);
 
@@ -28,7 +28,7 @@ void loop() {
 
   if (readData(chip,address)) ++address;
   
-  delay(5000);
+  delay(1000);
 }
 
 void writeData(byte deviceAddress, unsigned int memoryAddress, byte data) {
